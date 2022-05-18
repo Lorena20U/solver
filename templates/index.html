@@ -1,0 +1,243 @@
+{% extends "layout.html" %}
+
+{% block tit %} Solver {% endblock %}
+
+{% block enc %} ¡Bienvenido! {% endblock %}
+
+{% block contenido%}
+{% if var == "" %}
+<div class="container needs-validation" novalidate>
+    <form method="POST">
+        <div class="form-group row">
+            <label for="validationTooltip01" class="col-sm-2 col-form-label">Cantidad de variables a considerar:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="var" id="variables"
+                    placeholder="Ingrese un numero entero." required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="validationTooltip02" class="col-sm-2 col-form-label">Cantidad de restricciones a
+                considerar:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="restr" id="restricciones"
+                    placeholder="Ingrese un numero entero." required>
+            </div>
+        </div>
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">Tipo de optimizacion</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="opt" id="min" value=1>
+                        <label class="form-check-label" for="gridRadios1">
+                            Maximizacion
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="opt" id="max" value=2>
+                        <label class="form-check-label" for="gridRadios2">
+                            Minimizacion
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row p-4 pb mb-3">
+            <div class="col-sm-10">
+                <!--a class="nav-link" href="/definition"></a-->
+                <button type="submit" class="btn btn-primary">Resultado</button>
+
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+
+</div>
+{% endif %}
+
+
+{% if opt == '1' %}
+<div class="container">
+    <div class="p-4 container-xl mb-3" role="group">
+        <div class="container mb-3" style="width: 25rem;">
+            <label for="formGroupExampleInput">
+                <h5>Problema de Maximizacion</h5>
+                <h5>Ingrese los valores solicitados:</h5>
+            </label>
+        </div>
+        <form method="POST">
+
+            <h6>Ingrese los valores de Z: </h6>
+            <div class="form-group">
+                <div class="btn-group container mb-3" role="group" style="width: 25rem;">
+
+                    {% for item in range(1, (var|int)+1) %}
+                    <input type="number" class="form-control text-success" name="zx{{ item }}"
+                        placeholder="x{{ item }}">
+                    {% endfor %}
+                </div>
+            </div>
+            <h6>Ingrese los valores de las restricciones: </h6>
+            {% for item in range(1, (restr|int)+1) %}
+            <div class="form-group">
+                <div class="btn-group container mb-3" role="group" style="width: 25rem;">
+
+                    {% for itemv in range(1, (var|int)+1) %}
+                    <input type="number" class="form-control text-success" name="rx{{ item }}{{ itemv }}"
+                        placeholder="x{{ itemv }}">
+                    {% endfor %}
+                    <select class="form-control text-succes" name="signo{{ item }}">
+                        <option selected value="1">=</option>
+                        <option value="-1">>=</option>
+                        <option value="1">
+                            <=< /option>
+                    </select>
+                    <input type="number" class="form-control text-success" name="res{{ item }}" placeholder="r">
+                </div>
+            </div>
+            {% endfor %}
+            <h6>Confirme el tipo de optimizacion: </h6>
+            <div class="form-group">
+                <select class="custom-select" name="topt">
+                    <option selected value="1">Maximizacion</option>
+                    <option value="2">Minimizacion</option>
+                </select>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary mb-3">Crear</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% if opt == '2' %}
+<div class="container">
+    <div class="p-4 container-xl mb-3" role="group">
+        <div class="container mb-3" style="width: 25rem;">
+            <label for="formGroupExampleInput">
+                <h5>Problema de Minimizacion</h5>
+                <h5>Ingrese los valores solicitados:</h5>
+            </label>
+        </div>
+        <form method="POST">
+
+            <h6>Ingrese los valores de Z: </h6>
+            <div class="form-group">
+                <div class="btn-group container mb-3" role="group" style="width: 25rem;">
+
+                    {% for item in range(1, (var|int)+1) %}
+                    <input type="number" class="form-control text-success" name="zx{{ item }}"
+                        placeholder="x{{ item }}">
+                    {% endfor %}
+                </div>
+            </div>
+            <h6>Ingrese los valores de las restricciones: </h6>
+            {% for item in range(1, (restr|int)+1) %}
+            <div class="form-group">
+                <div class="btn-group container mb-3" role="group" style="width: 25rem;">
+
+                    {% for itemv in range(1, (var|int)+1) %}
+                    <input type="number" class="form-control text-success" name="rx{{ item }}{{ itemv }}"
+                        placeholder="x{{ itemv }}">
+                    {% endfor %}
+                    <select class="form-control text-succes" name="signo{{ item }}">
+                        <option selected value="1">=</option>
+                        <option value="-1">>=</option>
+                        <option value="1">
+                            <=< /option>
+                    </select>
+                    <input type="number" class="form-control text-success" name="res{{ item }}" placeholder="r">
+                </div>
+            </div>
+            {% endfor %}
+            <h6>Confirme el tipo de optimizacion: </h6>
+            <div class="form-group">
+                <select class="custom-select" name="topt">
+                    <option selected value="1">Maximizacion</option>
+                    <option value="2">Minimizacion</option>
+                </select>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary mb-3">Resultado</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% if topt == "1" %}
+<div class="container">
+    <div class="p-4 container-xl mb-3" role="group">
+        <div>
+            <h6>Tabla resultado del Primal</h6>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Y</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in primal %}
+                    <tr>
+                        {% for itemb in item %}
+
+                        <td>{{ itemb }}</td>
+
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-body">
+                {% if topt == "2" %}
+                <p class="card-text">Z = {{ -solprimal }}</p>
+                {% endif %}
+                {% if topt == "1" %}
+                <p class="card-text">Z = {{ solprimal }}</p>
+                {% endif %}}
+            </div>
+        </div>
+
+        <div>
+            <h6>Tabla resultado del Dual</h6>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Y</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in dual %}
+                    <tr>
+                        {% for itemb in item %}
+
+                        <td>{{ itemb }}</td>
+
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-body">
+                {% if topt == "2" %}
+                <p class="card-text">Z = {{ -solprimal }}</p>
+                {% endif %}
+                {% if topt == "1" %}
+                <p class="card-text">Z = {{ solprimal }}</p>
+                {% endif %}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
