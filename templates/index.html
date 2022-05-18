@@ -167,7 +167,7 @@
 </div>
 {% endif %}
 
-{% if topt == "1" %}
+{% if topt != "" %}
 <div class="container">
     <div class="p-4 container-xl mb-3" role="group">
         <div>
@@ -195,11 +195,11 @@
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
             <div class="card-body">
                 {% if topt == "2" %}
-                <p class="card-text">Z = {{ -solprimal }}</p>
+                <p class="card-text">Z = {{ solprimal*(-1) }}</p>
                 {% endif %}
                 {% if topt == "1" %}
                 <p class="card-text">Z = {{ solprimal }}</p>
-                {% endif %}}
+                {% endif %}
             </div>
         </div>
 
@@ -228,11 +228,11 @@
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
             <div class="card-body">
                 {% if topt == "2" %}
-                <p class="card-text">Z = {{ -solprimal }}</p>
+                <p class="card-text">Z = {{ soldual*(-1) }}</p>
                 {% endif %}
                 {% if topt == "1" %}
-                <p class="card-text">Z = {{ solprimal }}</p>
-                {% endif %}}
+                <p class="card-text">Z = {{ soldual }}</p>
+                {% endif %}
             </div>
         </div>
     </div>
